@@ -1,5 +1,7 @@
 server:
-  port : 8081
+  #To change port: $ java -jar -Dserver.port=8081 event-service.jar
+  #Or from eclipse pass "-Dserver.port=8081" as VM argument
+  port : 8080
 spring:
     mvc:
       pathmatch:

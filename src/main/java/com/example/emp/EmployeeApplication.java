@@ -21,7 +21,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
+@EnableSwagger2 //Url to access http://localhost:8080/swagger-ui.html
 public class EmployeeApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
@@ -48,13 +48,13 @@ public class EmployeeApplication implements CommandLineRunner {
 		roleRepository.save(role3);
 		
 
-		Employee employee1 = Employee.builder().firstName("Sanjiv").lastName("Naik").email("sanjiv@gmail.com").username("sanjiv").password(encoder.encode("test123"))
+		Employee employee1 = Employee.builder().firstName("Admin").lastName("Adm").email("sanjiv@gmail.com").username("admin").password(encoder.encode("test123"))
 				.roles(Arrays.asList(role1))
 				.build();
-		Employee employee2 = Employee.builder().firstName("Maninee").lastName("Patel").email("maninee@gmail.com").username("maninee").password(encoder.encode("test123"))
+		Employee employee2 = Employee.builder().firstName("Moderate").lastName("Mod").email("maninee@gmail.com").username("moderate").password(encoder.encode("test123"))
 				.roles(Arrays.asList(role2))
 				.build();
-		Employee employee3 = Employee.builder().firstName("Aarushi").lastName("Naik").email("aarushi@gmail.com").username("aarushi").password(encoder.encode("test123"))
+		Employee employee3 = Employee.builder().firstName("User").lastName("Usr").email("aarushi@gmail.com").username("user").password(encoder.encode("test123"))
 				.roles(Arrays.asList(role3))
 				.build();
 
@@ -66,7 +66,7 @@ public class EmployeeApplication implements CommandLineRunner {
 	@Bean
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.example.demo.controller")).build();//TODO - check the package
+				.apis(RequestHandlerSelectors.basePackage("com.example.emp.controller")).build();
 	}
 
 }
