@@ -32,7 +32,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2 //Url to access "http://localhost:8081/swagger-ui/index.htm"
+@EnableSwagger2 //Url to access "http://localhost:8081/swagger-ui/index.html"
 public class EmployeeApplication implements CommandLineRunner {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -74,8 +74,10 @@ public class EmployeeApplication implements CommandLineRunner {
 		employeeRepository.save(employee2);
 		employeeRepository.save(employee3);
 		
-		logger.info("Swagger UI can be accessed by <context_path>/swagger-ui/index.htm");
+		logger.info("Swagger UI can be accessed by <context_path>/swagger-ui/index.html");
 	}
+	
+	//private static final String SECURE_PATH="/*/.*";
 
 	@Bean
 	public Docket api() {
@@ -98,7 +100,7 @@ public class EmployeeApplication implements CommandLineRunner {
 	} 
 
 	private List<SecurityReference> defaultAuth() { 
-	    AuthorizationScope[] authorizationScopes = {new AuthorizationScope("global", "accessEverything")}; 
+		AuthorizationScope[] authorizationScopes = {new AuthorizationScope("global", "accessEverything")};
 	    return Arrays.asList(new SecurityReference("JWT", authorizationScopes)); 
 	}
 	

@@ -28,8 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs/**", //TODO V2 or V3?
             "/swagger-resources/**",
             "/swagger-ui/**",
-            "/webjars/**",
-            "/api/authenticate"
+            "/webjars/**"
     };
 
 	@Autowired
@@ -64,15 +63,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		// We don't need CSRF for this example
-		httpSecurity.csrf().disable().
-				authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll().				
-				anyRequest().authenticated().and(). //all other requests need to be authenticated
-				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().
-				sessionManagement().
-				sessionCreationPolicy(SessionCreationPolicy.STATELESS); // make sure we use stateless session; session won't be used to store user's state.
-
-		// Add a filter to validate the tokens with every request
-		httpSecurity.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.csrf().disable() // We don't need CSRF for this example
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // make sure we use stateless session; session won't be used to store user's state.
+		.and()		
+		.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()			
+		.antMatchers("/api/authenticate").permitAll()
+		.anyRequest().authenticated() //all other requests need to be authenticated
+		.and()
+		.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class) // Add a filter to validate the tokens with every request	
+		.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
 	}
 }
