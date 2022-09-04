@@ -38,7 +38,6 @@ public class EmployeeController {
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -83,14 +82,25 @@ public class EmployeeController {
         try {
             //check if employee exist in database
             Employee emp = getEmpRec(id);
-
             if (emp != null) {
                 employeeRepository.deleteById(id);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id) {
+    	sleep();
+        try {
+            Employee emp = getEmpRec(id);
+            if (emp != null) {
+            	return new ResponseEntity<>(emp, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

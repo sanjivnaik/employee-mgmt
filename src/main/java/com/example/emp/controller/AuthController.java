@@ -41,6 +41,8 @@ public class AuthController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
+		
+		sleep();
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
@@ -52,6 +54,14 @@ public class AuthController {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
+		}
+	}
+	
+	private void sleep() {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
