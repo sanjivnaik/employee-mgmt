@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable() // We don't need CSRF for this example
+		httpSecurity.cors().and().csrf().disable() // We don't need CSRF for this example
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // make sure we use stateless session; session won't be used to store user's state.
 		.and()		
 		.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()			

@@ -7,9 +7,12 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class JwtResponse implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class AuthResponse implements Serializable {
+	private static final long serialVersionUID = 1L;	
 	
 	private final String jwttoken;
+	private long id;
+	private String firstName;
+	private String lastName;
 
 }
